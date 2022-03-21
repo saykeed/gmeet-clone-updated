@@ -30,6 +30,7 @@ export default {
     props: ['roomID'],
     setup() {
         const localvid = ref(null)
+        const remotevid = ref(null)
         const options = ref(true)
         const toggleOptions = () => {
             options.value = !options.value
@@ -39,7 +40,7 @@ export default {
             alert('ending call')
         }
 
-      return { toggleOptions, options, localvid, endCall }
+      return { toggleOptions, options, localvid, remotevid, endCall }
     },
     mounted() {
         // global variables
@@ -108,6 +109,7 @@ export default {
             event.streams[0].getTracks().forEach(track => {
                 console.log('Add a track to the remoteStream:', track);
                 remoteStream.addTrack(track);
+                this.$refs.remotevid.srcObject = remoteStream
             });
         })
         
@@ -135,7 +137,7 @@ export default {
                         let data = item.doc.data();
                         //console.log(`Got the caller ICE candidate: ${JSON.stringify(data)}`);
                         await peerConnection.addIceCandidate(new RTCIceCandidate(data));
-                        console.log(peerConnection)
+                       // console.log(peerConnection)
                     }
                 })
             })
