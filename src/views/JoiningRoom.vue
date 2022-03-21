@@ -117,6 +117,19 @@ export default {
                 }
             })
             console.log('answer sent')
+
+            // listening for caller ice candidates in the database
+            onSnapshot(collection(targetDoc, 'callerCandidates'), async (snapshot) => {
+                snapshot.docChanges().forEach( async item => {
+                    
+                    if (item.type === 'added') {
+                        let data = item.doc.data();
+                        console.log(`Got the caller ICE candidate: ${JSON.stringify(data)}`);
+                        await peerConnection.addIceCandidate(new RTCIceCandidate(data));
+                        console.log(peerConnection)
+                    }
+                })
+            })
         }
         
 

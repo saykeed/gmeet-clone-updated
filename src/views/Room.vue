@@ -126,6 +126,15 @@ export default {
             console.log(roomID)
             
 
+            peerConnection.addEventListener('track', event => {
+                console.log('Got remote track:', event.streams[0]);
+                event.streams[0].getTracks().forEach(track => {
+                    console.log('Add a track to the remoteStream:', track);
+                    remoteStream.addTrack(track);
+                });
+            });
+
+
             // listen for updates in the room created by the caller
             const q = query(roomRef, where("__name__", "==", roomID))
             onSnapshot(q, async (snapshot) => {
@@ -143,7 +152,6 @@ export default {
             })
 
             // listening for remote ice candidates in the database
-
             onSnapshot(collection(targetDoc, 'joinerCandidates'), async (snapshot) => {
                 snapshot.docChanges().forEach( async item => {
                     
