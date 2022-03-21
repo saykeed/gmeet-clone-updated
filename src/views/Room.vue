@@ -146,10 +146,12 @@ export default {
 
             onSnapshot(collection(targetDoc, 'joinerCandidates'), async (snapshot) => {
                 snapshot.forEach( async item => {
+                    console.log(item, item.data())
                     if (item.type === 'added') {
                         let data = item.doc.data();
                         console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
                         await peerConnection.addIceCandidate(new RTCIceCandidate(data));
+                        console.log(peerConnection)
                     }
                 })
             })
