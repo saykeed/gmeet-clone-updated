@@ -132,7 +132,7 @@ export default {
                 event.streams[0].getTracks().forEach(track => {
                     console.log('Add a track to the remoteStream:', track);
                     remoteStream.addTrack(track);
-                    this.$refs.remotevid.srcObject = remoteStream
+                    this.$refs.remotevid.srcObject = localStream
                 });
             });
 
@@ -168,11 +168,7 @@ export default {
   
         }
 
-        
-        
-
-
-        
+     
         createRoom()
     }
 }

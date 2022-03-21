@@ -104,14 +104,6 @@ export default {
            sendAnswer(offer)
         }
 
-        peerConnection.addEventListener('track', event => {
-            console.log('Got remote track:', event.streams[0]);
-            event.streams[0].getTracks().forEach(track => {
-                console.log('Add a track to the remoteStream:', track);
-                remoteStream.addTrack(track);
-                this.$refs.remotevid.srcObject = remoteStream
-            });
-        })
         
         const sendAnswer = async (remoteOffer) => {
             const offer = remoteOffer.offer
