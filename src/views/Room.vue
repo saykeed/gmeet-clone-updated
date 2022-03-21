@@ -145,8 +145,8 @@ export default {
             // listening for remote ice candidates in the database
 
             onSnapshot(collection(targetDoc, 'joinerCandidates'), async (snapshot) => {
-                snapshot.forEach( async item => {
-                    console.log(item, item.data())
+                snapshot.docChanges().forEach( async item => {
+                    
                     if (item.type === 'added') {
                         let data = item.doc.data();
                         console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
