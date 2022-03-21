@@ -56,7 +56,7 @@ export default {
     mounted() {
         // global variables
         let localStream
-        let remoteStream
+        let remoteStream = new MediaStream()
         let peerConnection
         let roomID
         let data
@@ -157,7 +157,7 @@ export default {
                     
                     if (item.type === 'added') {
                         let data = item.doc.data();
-                        console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
+                       // console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
                         await peerConnection.addIceCandidate(new RTCIceCandidate(data));
                         console.log(peerConnection)
                     }

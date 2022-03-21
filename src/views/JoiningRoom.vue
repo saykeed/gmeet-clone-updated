@@ -45,7 +45,7 @@ export default {
         // global variables
         let offer
         let localStream
-        let remoteStream
+        let remoteStream = new MediaStream()
         let roomID = this.roomID
         let joinerIceCollection
         let peerConnection = new RTCPeerConnection(configuration);
@@ -99,8 +99,17 @@ export default {
         const getOffer = async () => {
             const getRoom = await getDoc(roomRef)
             offer = getRoom.data()
+
            sendAnswer(offer)
         }
+
+        peerConnection.addEventListener('track', event => {
+            console.log('Got remote track:', event.streams[0]);
+            event.streams[0].getTracks().forEach(track => {
+                console.log('Add a track to the remoteStream:', track);
+                remoteStream.addTrack(track);
+            });
+        })
         
         const sendAnswer = async (remoteOffer) => {
             const offer = remoteOffer.offer
@@ -124,7 +133,7 @@ export default {
                     
                     if (item.type === 'added') {
                         let data = item.doc.data();
-                        console.log(`Got the caller ICE candidate: ${JSON.stringify(data)}`);
+                        //console.log(`Got the caller ICE candidate: ${JSON.stringify(data)}`);
                         await peerConnection.addIceCandidate(new RTCIceCandidate(data));
                         console.log(peerConnection)
                     }
