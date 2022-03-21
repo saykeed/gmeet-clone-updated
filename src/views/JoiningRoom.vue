@@ -119,7 +119,7 @@ export default {
             console.log('answer sent')
 
             // listening for caller ice candidates in the database
-            onSnapshot(collection(targetDoc, 'callerCandidates'), async (snapshot) => {
+            onSnapshot(collection(roomRef, 'callerCandidates'), async (snapshot) => {
                 snapshot.docChanges().forEach( async item => {
                     
                     if (item.type === 'added') {
