@@ -146,7 +146,7 @@ export default {
 
             onSnapshot(collection(targetDoc, 'joinerCandidates'), async (snapshot) => {
                 snapshot.forEach(item => {
-                    console.log(item.data())
+                    console.log('joiner', item.type, item.data())
                 })
             })
   
