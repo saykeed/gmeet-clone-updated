@@ -62,7 +62,7 @@ export default {
         let roomID
         let data
         let callerIceCollection
-        
+        /*
         const configuration = {
             iceServers: [
                 {
@@ -74,7 +74,35 @@ export default {
                 },
             ],
             iceCandidatePoolSize: 10,
-        };
+        }
+        */
+
+       const configuration = {
+           iceServers: [
+                {
+                urls: [
+                    'stun:stun1.l.google.com:19302',
+                    'stun:stun2.l.google.com:19302',
+                ],
+                },
+                {
+                urls: "turn:openrelay.metered.ca:80",
+                username: "openrelayproject",
+                credential: "openrelayproject"
+                },
+                {
+                urls: "turn:openrelay.metered.ca:443",
+                username: "openrelayproject",
+                credential: "openrelayproject"
+                },
+                {
+                urls: "turn:openrelay.metered.ca:443?transport=tcp",
+                username: "openrelayproject",
+                credential: "openrelayproject"
+                }
+            ],
+            iceCandidatePoolSize: 10,
+       }
         
        
         
@@ -100,6 +128,8 @@ export default {
             // start creating ofer to be sent to the room database
             const offer = await peerConnection.createOffer();
             await peerConnection.setLocalDescription(offer);
+
+            // listening for caller candidates before sending them to room database
             const localListener = () => {
                 peerConnection.onicecandidate = (e) => {
                     if(!e.candidate) {
@@ -137,7 +167,7 @@ export default {
             });
 
 
-            // listen for updates in the room created by the caller
+            // listen for answer in the room created by the joiner
             const q = query(roomRef, where("__name__", "==", roomID))
             onSnapshot(q, async (snapshot) => {
                 snapshot.forEach(item => {
@@ -153,7 +183,7 @@ export default {
                 
             })
 
-            // listening for remote ice candidates in the database
+            // listening for joiner ice candidates in the database
             onSnapshot(collection(targetDoc, 'joinerCandidates'), async (snapshot) => {
                 snapshot.docChanges().forEach( async item => {
                     
