@@ -159,7 +159,7 @@ export default {
                     sdp: answer.sdp
                 }
             })
-            console.log('answer sent')
+            console.log('answer sent', peerConnection)
 
             // listening for caller ice candidates in the database
             onSnapshot(collection(roomRef, 'callerCandidates'), async (snapshot) => {
@@ -169,7 +169,7 @@ export default {
                         let data = item.doc.data();
                         //console.log(`Got the caller ICE candidate: ${JSON.stringify(data)}`);
                         await peerConnection.addIceCandidate(new RTCIceCandidate(data));
-                        //console.log(peerConnection)
+                        console.log(peerConnection)
                     }
                 })
             })

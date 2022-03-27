@@ -154,7 +154,7 @@ export default {
             // setting the modal roomID variable for the modal appears
             this.roomID = roomID
             this.modalStatus = true
-            console.log(roomID)
+            console.log(roomID, peerConnection)
             
 
             peerConnection.addEventListener('track', event => {
@@ -194,6 +194,7 @@ export default {
                         //console.log(peerConnection)
                     }
                 })
+                console.log(peerConnection)
             })
   
         }
