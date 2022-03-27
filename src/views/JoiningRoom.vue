@@ -123,14 +123,14 @@ export default {
 
 
             // listening for tracks from the caller
-            peerConnection.addEventListener('track', event => {
-                console.log('Got remote track:', event.streams[0]);
-                event.streams[0].getTracks().forEach(track => {
-                    console.log('Add a track to the remoteStream:', track);
-                    remoteStream.addTrack(track);
-                    this.$refs.remotevid.srcObject = remoteStream
-                });
-            });
+            // peerConnection.addEventListener('track', event => {
+            //     console.log('Got remote track:', event.streams[0]);
+            //     event.streams[0].getTracks().forEach(track => {
+            //         console.log('Add a track to the remoteStream:', track);
+            //         remoteStream.addTrack(track);
+            //         this.$refs.remotevid.srcObject = remoteStream
+            //     });
+            // });
 
 
             // invoking the function that get the offer from the room id the joiner inputed
@@ -169,9 +169,10 @@ export default {
                         let data = item.doc.data();
                         //console.log(`Got the caller ICE candidate: ${JSON.stringify(data)}`);
                         await peerConnection.addIceCandidate(new RTCIceCandidate(data));
-                        console.log(peerConnection)
+                        
                     }
                 })
+                console.log(peerConnection)
             })
         }
         
