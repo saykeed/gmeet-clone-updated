@@ -112,14 +112,14 @@ export default {
 
         // create room function
         const createRoom = async () => {
-            
+            peerConnection = new RTCPeerConnection(configuration);
             const stream = await navigator.mediaDevices.getUserMedia({audio: true, video: true})
             this.$refs.localvid.srcObject = stream
             localStream = stream
-            peerConnection = new RTCPeerConnection(configuration);
-            // localStream.getTracks().forEach(track => {
-            //     peerConnection.addTrack(track, localStream);
-            // });
+            
+            localStream.getTracks().forEach(track => {
+                peerConnection.addTrack(track, localStream);
+            });
             // created an empty room just to generate an id
             const newRoom =  await addDoc(roomRef, {})
             roomID = newRoom.id

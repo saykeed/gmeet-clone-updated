@@ -103,9 +103,9 @@ export default {
             this.$refs.localvid.srcObject = stream
             localStream = stream
             //add the local streams to the peer connection object
-            // localStream.getTracks().forEach(track => {
-            //     peerConnection.addTrack(track, localStream);
-            // });
+            localStream.getTracks().forEach(track => {
+                peerConnection.addTrack(track, localStream);
+            });
             
             joinerIceCollection = collection(roomRef, 'joinerCandidates')
             // function to listen for ice generated
