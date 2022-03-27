@@ -159,7 +159,7 @@ export default {
                     sdp: answer.sdp
                 }
             })
-            console.log('answer sent', peerConnection)
+            console.log('answer sent')
 
             // listening for caller ice candidates in the database
             onSnapshot(collection(roomRef, 'callerCandidates'), async (snapshot) => {
