@@ -50,7 +50,7 @@ export default {
         let roomID = this.roomID
         let joinerIceCollection
         let peerConnection = new RTCPeerConnection(configuration);
-        /*
+        
         const configuration = {
             iceServers: [
                 {
@@ -63,36 +63,38 @@ export default {
             ],
             iceCandidatePoolSize: 10,
         };
-        */
+        
 
-        const configuration = {
-           iceServers: [
-                {
-                urls: [
-                    'stun:stun1.l.google.com:19302',
-                    'stun:stun2.l.google.com:19302',
-                ],
-                },
-                {
-                urls: "turn:openrelay.metered.ca:80",
-                username: "openrelayproject",
-                credential: "openrelayproject"
-                },
-                {
-                urls: "turn:openrelay.metered.ca:443",
-                username: "openrelayproject",
-                credential: "openrelayproject"
-                },
-                {
-                urls: "turn:openrelay.metered.ca:443?transport=tcp",
-                username: "openrelayproject",
-                credential: "openrelayproject"
-                }
-            ],
-            iceCandidatePoolSize: 10,
-       }
+    //     const configuration = {
+    //        iceServers: [
+    //             {
+    //             urls: [
+    //                 'stun:stun1.l.google.com:19302',
+    //                 'stun:stun2.l.google.com:19302',
+    //             ],
+    //             },
+    //             {
+    //             urls: "turn:openrelay.metered.ca:80",
+    //             username: "openrelayproject",
+    //             credential: "openrelayproject"
+    //             },
+    //             {
+    //             urls: "turn:openrelay.metered.ca:443",
+    //             username: "openrelayproject",
+    //             credential: "openrelayproject"
+    //             },
+    //             {
+    //             urls: "turn:openrelay.metered.ca:443?transport=tcp",
+    //             username: "openrelayproject",
+    //             credential: "openrelayproject"
+    //             }
+    //         ],
+    //         iceCandidatePoolSize: 10,
+    //    }
 
-        // making reference to the id of the room the user wants to join
+       
+       
+       // making reference to the id of the room the user wants to join
         const roomsDB = getFirestore();
         const roomRef = doc(roomsDB, 'Rooms', roomID); 
 
